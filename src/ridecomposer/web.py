@@ -52,6 +52,12 @@ def _config_payload(cfg: Config) -> dict:
         "master": cfg.master,
         "location": cfg.location,
         "mantra": cfg.mantra,
+        # web instrument
+        "palette": cfg.palette,
+        "graphIntensity": cfg.graph_intensity,
+        "basemapDefaultOn": cfg.basemap_default_on,
+        "basemapProvider": cfg.basemap_provider,
+        "tileDim": cfg.tile_dim,
     }
 
 

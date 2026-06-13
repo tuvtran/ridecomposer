@@ -48,6 +48,13 @@ class Config:
     location: str = "SAN FRANCISCO"  # subtitle locale; --location to override per ride
     mantra: str = "suffer with purpose"
 
+    # --- web instrument (browser-only taste; offline renderer ignores these) ----
+    palette: str = "inferno"  # route/graph palette: inferno | magma | ice | mono | neon
+    graph_intensity: float = 1.0  # 0..1.5 glow/brightness of the visualization
+    basemap_default_on: bool = True  # show the dark map basemap under the route by default
+    basemap_provider: str = "carto"  # carto | esri (both no-key, CORS-clean)
+    tile_dim: float = 0.12  # light scrim over the (already dark) tiles so the route pops
+
     def with_overrides(self, **kw: object) -> Config:
         """Return a copy with the given fields replaced (None values ignored)."""
         clean = {k: v for k, v in kw.items() if v is not None}

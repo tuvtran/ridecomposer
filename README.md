@@ -46,11 +46,15 @@ uv run ridecomposer --web --limit 8 --streams-dir ~/rides -o site   # pick a fol
 `--web` exports a single **self-contained HTML file** — no server, no deps, opens
 on a double-click. It lands on a **gallery**: a card per composed ride with its
 route thumbnail and stats. Click one to enter its *ride-along instrument*, where
-the piece is synthesized live via the Web Audio API as the route draws hot and
-the climb builds. `← gallery` goes back.
+the piece is synthesized live via the Web Audio API over a **real dark basemap**
+(CARTO tiles, loaded CORS-clean so the export still works) with the route drawing
+hot along the actual streets and the dot pixel-locked to the map. `← gallery` goes back.
 
-A **genre / speed** control morphs the piece across three tempos, each adding its
-own layers on a BPM grid — all still driven by the ride's effort:
+A **genre / speed** control morphs the piece across three tempos, each with its own
+arrangement (intro → build → drop → breakdown → outro), a moving chord progression,
+clap/snare on 2 & 4, probability hats with ghost notes, fills, an arpeggio that
+climbs when you climb, and genre-specific basslines — all deterministic and driven
+by the ride's effort:
 
 | Speed   | Genre       | What you get                                               |
 |---------|-------------|------------------------------------------------------------|
@@ -58,10 +62,19 @@ own layers on a BPM grid — all still driven by the ride's effort:
 | `2:00`  | house       | 124 BPM swung groove, warmer pads, rolling bass            |
 | `4:00`  | downtempo   | no kick — the original ambient: drone, bells, real heartbeat |
 
-Plus live mix sliders: reverb, *suffering* (shimmer amount), volume. The browser
-engine mirrors the offline mappings (drone opens with power, shimmer gates in on
-the climbs, the heartbeat tracks real HR) but synthesizes in realtime with Web
-Audio nodes. The offline `.wav` stays the downtempo master.
+Other controls: a **basemap** toggle, a **palette** picker (inferno / magma / ice /
+mono / neon), an **intensity** slider (glow/brightness), and reverb, *suffering*
+(shimmer), volume. Defaults come from `config.py` (`palette`, `graph_intensity`,
+`basemap_default_on`, `tile_dim`).
+
+**Export** (top-right) saves an Instagram-Reels **vertical 9:16 1080×1920** artifact:
+either a **video** of the playthrough — recorded with the generative audio muxed in
+(MP4/H.264 where the browser supports it, else WebM) — or a still **PNG poster**. It
+uses a dedicated vertical composition, not a stretched widescreen frame.
+
+The browser engine mirrors the offline mappings (drone opens with power, shimmer
+gates in on the climbs, the heartbeat tracks real HR) but synthesizes in realtime
+with Web Audio nodes. The offline `.wav` stays the downtempo master.
 
 ## CLI
 
