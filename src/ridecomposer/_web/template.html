@@ -516,10 +516,11 @@ function renderElev(c, m, F, box){
 
 function renderStats(c, F, st){
   const items=[["PWR",F.pwr+"W"],["HR",F.hr+"bpm"],["CAD",F.cad+"rpm"],["ALT",F.alt+"m"],["GRD",F.grade.toFixed(1)+"%"]];
-  let x=st.x; items.forEach(([k,v])=>{
-    c.fillStyle=THEME.ink; c.font=`600 ${st.vSize}px "Helvetica Neue",Arial`; c.fillText(v,x,st.y);
-    c.fillStyle=THEME.mut; c.font=`${st.kSize}px "Helvetica Neue",Arial`; c.fillText(k,x,st.y-st.vSize-2);
-    x += Math.max(st.gap, c.measureText(v).width+st.gap*0.45); });
+  const valFont=`600 ${st.vSize}px "Helvetica Neue",Arial`, keyFont=`${st.kSize}px "Helvetica Neue",Arial`;
+  c.textAlign="left";
+  items.forEach(([k,v],i)=>{ const x=st.x+i*st.colW;   // equal columns: never collide at any size
+    c.fillStyle=THEME.mut; c.font=keyFont; c.fillText(k, x, st.y-st.vSize-2);
+    c.fillStyle=THEME.ink; c.font=valFont; c.fillText(v, x, st.y); });
 }
 
 function renderScene(c, W, H, L, F, m, tiles){
@@ -548,13 +549,13 @@ function layoutLive(W,H){ const pad=26, elevH=Math.min(150,H*0.26), routeBottom=
   return { title:{show:false}, dotR:4.5,
     route:{x:pad,y:24,w:W-pad*2,h:Math.max(40,routeBottom-24)},
     elev:{x:pad,y:H-elevH-30,w:W-pad*2,h:elevH},
-    stats:{x:pad,y:H-elevH-44,gap:108,vSize:22,kSize:11},
+    stats:{x:pad,y:H-elevH-44,vSize:22,kSize:11,colW:(W-pad*2)/5},
     progress:{show:false}, mantra:{show:false} }; }
 function layoutVertical(W,H){ const pad=64;
   return { title:{show:true,x:pad,y:130,size:60,subSize:24}, dotR:9,
     route:{x:pad,y:250,w:W-pad*2,h:930},
     elev:{x:pad,y:1230,w:W-pad*2,h:220},
-    stats:{x:pad,y:1560,gap:190,vSize:54,kSize:20},
+    stats:{x:pad,y:1560,vSize:44,kSize:20,colW:(W-pad*2)/5},
     progress:{show:true,x:pad,y:1700,w:W-pad*2,size:26},
     mantra:{show:true,y:1800,size:30} }; }
 
