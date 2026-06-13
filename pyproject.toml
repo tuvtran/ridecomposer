@@ -1,0 +1,42 @@
+[project]
+name = "ridecomposer"
+version = "0.2.0"
+description = "Turn one bike ride into a generative ambient piece and a printable poster — pure-stdlib DSP, written from scratch."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Tu Tran" }]
+keywords = ["generative", "ambient", "sonification", "cycling", "strava", "svg", "dsp"]
+dependencies = []  # pure standard library, by design — no numpy, no audio lib
+
+[project.scripts]
+ridecomposer = "ridecomposer.cli:main"
+
+[project.urls]
+Source = "https://github.com/tutran/ridecomposer"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ridecomposer"]
+# _data/ (sample rides) and _web/ (instrument template) live under the package,
+# so hatchling bundles them into the wheel automatically — no force-include.
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "reference", "README.md", "tests"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E741"]  # ambiguous var names (l/r for left/right channels read fine here)
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

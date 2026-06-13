@@ -1,0 +1,16 @@
+# build / venv
+.venv/
+dist/
+build/
+*.egg-info/
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# rendered artifacts
+out/
+*.wav
+*.svg
